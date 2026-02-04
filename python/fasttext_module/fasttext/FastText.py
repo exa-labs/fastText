@@ -471,6 +471,7 @@ unsupervised_default = {
     "autotunePredictions": 1,
     "autotuneDuration": 60 * 5,  # 5 minutes
     "autotuneModelSize": "",
+    "noEos": False,
 }
 
 
@@ -481,6 +482,7 @@ def read_args(arg_list, arg_dict, arg_names, default_values):
         "lr_update_rate": "lrUpdateRate",
         "label_prefix": "label",
         "pretrained_vectors": "pretrainedVectors",
+        "no_eos": "noEos",
     }
 
     ret = {}
@@ -553,6 +555,7 @@ def train_supervised(*kargs, **kwargs):
         "autotunePredictions",
         "autotuneDuration",
         "autotuneModelSize",
+        "noEos",
     ]
     args, manually_set_args = read_args(kargs, kwargs, arg_names, supervised_default)
     a = _build_args(args, manually_set_args)
