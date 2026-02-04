@@ -398,8 +398,11 @@ int32_t Dictionary::getLine(
 
     ntokens++;
     if (type == entry_type::word) {
-      addSubwords(words, token, wid);
-      word_hashes.push_back(h);
+      // Skip EOS token if noEos flag is set (for supervised learning)
+      if (!(args_->noEos && token == EOS)) {
+        addSubwords(words, token, wid);
+        word_hashes.push_back(h);
+      }
     } else if (type == entry_type::label && wid >= 0) {
       labels.push_back(wid - nwords_);
     }
@@ -443,8 +446,11 @@ int32_t Dictionary::getStringNoNewline(
 
     ntokens++;
     if (type == entry_type::word) {
-      addSubwords(words, token, wid);
-      word_hashes.push_back(h);
+      // Skip EOS token if noEos flag is set (for supervised learning)
+      if (!(args_->noEos && token == EOS)) {
+        addSubwords(words, token, wid);
+        word_hashes.push_back(h);
+      }
     } else if (type == entry_type::label && wid >= 0) {
       labels.push_back(wid - nwords_);
     }

@@ -59,6 +59,7 @@ class Args {
   std::string pretrainedVectors;
   bool saveOutput;
   int seed;
+  bool noEos;  // Exclude EOS token from supervised learning
 
   bool qout;
   bool retrain;
