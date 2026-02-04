@@ -21,7 +21,7 @@ import subprocess
 import platform
 import io
 
-__version__ = "0.9.2"
+__version__ = "0.9.3"
 FASTTEXT_SRC = "src"
 
 # Based on https://github.com/pybind/python_example
@@ -111,7 +111,7 @@ def cpp_flag(compiler):
     for standard in standards:
         if has_flag(compiler, [standard]):
             return standard
-    raise RuntimeError("Unsupported compiler -- at least C++17 support " "is needed!")
+    raise RuntimeError("Unsupported compiler -- at least C++17 support is needed!")
 
 
 class BuildExt(build_ext):

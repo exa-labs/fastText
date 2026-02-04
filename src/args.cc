@@ -343,7 +343,6 @@ void Args::save(std::ostream& out) {
   out.write((char*)&(maxn), sizeof(int));
   out.write((char*)&(lrUpdateRate), sizeof(int));
   out.write((char*)&(t), sizeof(double));
-  out.write((char*)&(noEos), sizeof(bool));
 }
 
 void Args::load(std::istream& in) {
@@ -360,10 +359,6 @@ void Args::load(std::istream& in) {
   in.read((char*)&(maxn), sizeof(int));
   in.read((char*)&(lrUpdateRate), sizeof(int));
   in.read((char*)&(t), sizeof(double));
-  // noEos added in exa fork - defaults to false for backward compat with old models
-  if (in.peek() != EOF) {
-    in.read((char*)&(noEos), sizeof(bool));
-  }
 }
 
 void Args::dump(std::ostream& out) const {

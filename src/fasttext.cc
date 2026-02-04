@@ -22,7 +22,7 @@
 
 namespace fasttext {
 
-constexpr int32_t FASTTEXT_VERSION = 12; /* Version 1b */
+constexpr int32_t FASTTEXT_VERSION = 13; /* Version 1c - exa fork adds noEos */
 constexpr int32_t FASTTEXT_FILEFORMAT_MAGIC_INT32 = 793712314;
 
 bool comparePairs(
@@ -199,6 +199,8 @@ void FastText::saveModel(const std::string& filename) {
   }
   signModel(ofs);
   args_->save(ofs);
+  // noEos added in version 13 (exa fork)
+  ofs.write((char*)&(args_->noEos), sizeof(bool));
   dict_->save(ofs);
 
   ofs.write((char*)&(quant_), sizeof(bool));
@@ -244,6 +246,10 @@ void FastText::loadModel(std::istream& in) {
   if (version == 11 && args_->model == model_name::sup) {
     // backward compatibility: old supervised models do not use char ngrams.
     args_->maxn = 0;
+  }
+  if (version >= 13) {
+    // noEos added in version 13 (exa fork)
+    in.read((char*)&(args_->noEos), sizeof(bool));
   }
   dict_ = std::make_shared<Dictionary>(args_, in);
 
