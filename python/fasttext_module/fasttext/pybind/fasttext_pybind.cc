@@ -125,6 +125,7 @@ PYBIND11_MODULE(fasttext_pybind, m) {
           "autotunePredictions", &fasttext::Args::autotunePredictions)
       .def_readwrite("autotuneDuration", &fasttext::Args::autotuneDuration)
       .def_readwrite("autotuneModelSize", &fasttext::Args::autotuneModelSize)
+      .def_readwrite("noEos", &fasttext::Args::noEos)
       .def("setManual", [](fasttext::Args& m, const std::string& argName) {
         m.setManual(argName);
       });
